@@ -5,8 +5,8 @@
 #define MAX_LENGTH (100002)
 
 int n;
-std::vector<long long> decreasing_tree(MAX_LENGTH, 0);
-std::vector<long long> increasing_tree(MAX_LENGTH, 0);
+std::vector<long long> first_tree(MAX_LENGTH, 0);
+std::vector<long long> second_tree(MAX_LENGTH, 0);
 
 void Update(std::vector<long long>& tree, int k, long long v) {
     while (k > 0) {
@@ -30,10 +30,10 @@ int main(int argc, char* argv[]) {
     int a;
     for (int i = 0; i < n; i++) {
         std::cin >> a;
-        Update(decreasing_tree, a, 1);
-        long long inversion_count = Query(decreasing_tree, a + 1);
-        Update(increasing_tree, a, inversion_count);
-        count += Query(increasing_tree, a + 1);
+        Update(first_tree, a, 1);
+        long long inversion_count = Query(first_tree, a + 1);
+        Update(second_tree, a, inversion_count);
+        count += Query(second_tree, a + 1);
     }
     std::cout << count << std::endl;
     return 0;
