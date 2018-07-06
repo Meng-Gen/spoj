@@ -1,4 +1,5 @@
 #include <cstring>
+#include <ios>
 #include <iostream>
 #include <vector>
 
@@ -8,33 +9,35 @@ int n;
 std::vector<long long> first_tree(MAX_LENGTH, 0);
 std::vector<long long> second_tree(MAX_LENGTH, 0);
 
-void Update(std::vector<long long>& tree, int k, long long v) {
-    while (k > 0) {
-        tree[k] += v;
+long long Query(std::vector<long long>& tree, int k) {
+    long long s = 0;
+    while (k >= 1) {
+        s += tree[k];
         k -= k & (-k);
     }
+    return s;
 }
 
-long long Query(std::vector<long long>& tree, int k) {
-    long long sum = 0;
+void Update(std::vector<long long>& tree, int k, long long v) {
     while (k <= n) {
-        sum += tree[k];
+        tree[k] += v;
         k += k & (-k);
     }
-    return sum;
 }
 
 int main(int argc, char* argv[]) {
+    std::ios_base::sync_with_stdio(false);
+
     std::cin >> n;
     long long count = 0;
     int a;
     for (int i = 0; i < n; i++) {
         std::cin >> a;
         Update(first_tree, a, 1);
-        long long inversion_count = Query(first_tree, a + 1);
+        long long inversion_count = Query(first_tree, n) - Query(first_tree, a);
         Update(second_tree, a, inversion_count);
-        count += Query(second_tree, a + 1);
+        count += Query(second_tree, n) - Query(second_tree, a);
     }
-    std::cout << count << std::endl;
+    std::cout << count << '\n';
     return 0;
 }
