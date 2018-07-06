@@ -9,7 +9,6 @@ long long second_sequence[MAX_LENGTH];
 
 int main(int argc, char* argv[]) {
     std::ios_base::sync_with_stdio(false);
-    //std::cin.tie(0);
 
     int first_length;
     int second_length;
@@ -26,17 +25,6 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < second_length; i++) {
             std::cin >> second_sequence[i];
         }
-
-        /*
-        for (int i = 0; i < first_length; i++) {
-            std::cout << first_sequence[i] << " ";
-        }
-        std::cout << '\n';
-        for (int i = 0; i < second_length; i++) {
-            std::cout << second_sequence[i] << " ";
-        }
-        std::cout << '\n';
-        */
 
         long long max_sum = 0;
         long long partial_sum_at_first = 0;
